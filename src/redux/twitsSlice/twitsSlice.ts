@@ -18,7 +18,7 @@ export const postTwit = createAsyncThunk<
     { text: string; images: string[] }
 >("twits/postTwit", async (payload) => {
     const URL =
-        String(process.env.REACT_APP_API_URL) + "/twits/create" ||
+        String(process.env.REACT_APP_API_URL) + "twits/create" ||
         "twits/create";
 
     const { data } = await axios.post<Response<Twit>>(URL, payload);
@@ -30,7 +30,7 @@ export const deleteTwit = createAsyncThunk<string, string>(
     "twits/deleteTwit",
     async (payload) => {
         const URL =
-            String(process.env.REACT_APP_API_URL) + "/twits/" + payload ||
+            String(process.env.REACT_APP_API_URL) + "twits/" + payload ||
             `twits/${payload}`;
         await axios.delete(URL);
         return payload;
@@ -40,8 +40,7 @@ export const deleteTwit = createAsyncThunk<string, string>(
 export const fetchTwits = createAsyncThunk<Twit[]>(
     "twits/fetchTwits",
     async () => {
-        const URL =
-            String(process.env.REACT_APP_API_URL) + "/twits" || "/twits";
+        const URL = String(process.env.REACT_APP_API_URL) + "twits" || "/twits";
         const { data } = await axios.get<Response<Twit[]>>(URL);
         return data.data;
     }

@@ -15,7 +15,7 @@ export const fetchLoginUser = createAsyncThunk<User, LoginProps>(
     "user/fetchLoginUser",
     async (payload) => {
         const URL =
-            String(process.env.REACT_APP_API_URL) + "/auth/login" ||
+            String(process.env.REACT_APP_API_URL) + "auth/login" ||
             "/auth/login";
         const { data } = await axios.post<Response<User>>(URL, payload);
 
@@ -31,7 +31,7 @@ export const fetchRegisterUser = createAsyncThunk<User, RegisterProps>(
     "user/fetchRegisterUser",
     async (payload) => {
         const URL =
-            String(process.env.REACT_APP_API_URL) + "/auth/register" ||
+            String(process.env.REACT_APP_API_URL) + "auth/register" ||
             "/auth/register";
         const { data } = await axios.post<Response<User>>(URL, payload);
         return data.data;
@@ -39,7 +39,7 @@ export const fetchRegisterUser = createAsyncThunk<User, RegisterProps>(
 );
 export const getMe = createAsyncThunk<User>("user/getMe", async () => {
     const URL =
-        String(process.env.REACT_APP_API_URL) + "/users/me" || "/users/me";
+        String(process.env.REACT_APP_API_URL) + "users/me" || "/users/me";
     const { data } = await axios.get<Response<User>>(URL);
     return data.data;
 });

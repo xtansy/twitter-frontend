@@ -14,7 +14,7 @@ const UserList = () => {
         const fetchUsers = async () => {
             try {
                 const { data } = await axios.get(
-                    String(process.env.REACT_APP_API_URL) + "/users" || "/users"
+                    String(process.env.REACT_APP_API_URL) + "users" || "/users"
                 );
                 setUsers(data.data);
             } catch (e) {

@@ -34,9 +34,8 @@ const User = () => {
         const fetchUser = async () => {
             try {
                 const { data } = await axios.get(
-                    String(process.env.REACT_APP_API_URL) +
-                        "/users/" +
-                        userId || `/users/${userId}`
+                    String(process.env.REACT_APP_API_URL) + "users/" + userId ||
+                        `/users/${userId}`
                 );
                 setUser(data);
             } catch (e) {
