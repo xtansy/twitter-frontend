@@ -37,7 +37,7 @@ const AddTwitForm: React.FC<AddTwitFormProps> = ({ onCloseTweetModal }) => {
     };
 
     const onClickAddTwit: MouseEventHandler<HTMLButtonElement> = async () => {
-        if (textPercent === 0) {
+        if (textPercent === 0 || twitLoadingStatus === LoadingStatus.LOADING) {
             return;
         }
 
@@ -50,10 +50,10 @@ const AddTwitForm: React.FC<AddTwitFormProps> = ({ onCloseTweetModal }) => {
             const { url } = await uploadImage(images[i].file);
             urls.push(url);
         }
+        setImages([]);
 
         dispatch(postTwit({ text, images: urls }));
 
-        setImages([]);
         setText("");
     };
 
@@ -106,7 +106,9 @@ const AddTwitForm: React.FC<AddTwitFormProps> = ({ onCloseTweetModal }) => {
                         onClick={onClickAddTwit}
                         // disabled={textPercent > 100}
                         className={`button mytwit__subheader-button ${
-                            textPercent > 100 || textPercent === 0
+                            textPercent > 100 ||
+                            textPercent === 0 ||
+                            twitLoadingStatus === LoadingStatus.LOADING
                                 ? "button__disabled"
                                 : ""
                         }`}

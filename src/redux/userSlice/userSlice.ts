@@ -5,6 +5,7 @@ import { LoginProps } from "../../Pages/SignIn/SignInModal";
 import { axios } from "../../core/axios";
 import { Response } from "../twitsSlice/twitsSlice";
 import { RegisterProps } from "../../Pages/SignIn/SignUpModal";
+import isAxiosError, { AxiosError } from "axios";
 
 const initialState: IUser = {
     data: null,
@@ -14,9 +15,9 @@ const initialState: IUser = {
 export const fetchLoginUser = createAsyncThunk<User, LoginProps>(
     "user/fetchLoginUser",
     async (payload) => {
-        const URL =
-            String(process.env.REACT_APP_API_URL) + "auth/login" ||
-            "/auth/login";
+        const URL = process.env.REACT_APP_API_URL
+            ? process.env.REACT_APP_API_URL + "auth/login"
+            : "/auth/login";
         const { data } = await axios.post<Response<User>>(URL, payload);
 
         if (data.data.token) {
@@ -27,19 +28,26 @@ export const fetchLoginUser = createAsyncThunk<User, LoginProps>(
     }
 );
 
-export const fetchRegisterUser = createAsyncThunk<User, RegisterProps>(
-    "user/fetchRegisterUser",
-    async (payload) => {
-        const URL =
-            String(process.env.REACT_APP_API_URL) + "auth/register" ||
-            "/auth/register";
+export const fetchRegisterUser = createAsyncThunk<
+    User,
+    RegisterProps,
+    { rejectValue: any }
+>("user/fetchRegisterUser", async (payload, { rejectWithValue }) => {
+    const URL = process.env.REACT_APP_API_URL
+        ? process.env.REACT_APP_API_URL + "auth/register"
+        : "/auth/register";
+    try {
         const { data } = await axios.post<Response<User>>(URL, payload);
         return data.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        return rejectWithValue(err.response?.data);
     }
-);
+});
 export const getMe = createAsyncThunk<User>("user/getMe", async () => {
-    const URL =
-        String(process.env.REACT_APP_API_URL) + "users/me" || "/users/me";
+    const URL = process.env.REACT_APP_API_URL
+        ? process.env.REACT_APP_API_URL + "users/me"
+        : "/users/me";
     const { data } = await axios.get<Response<User>>(URL);
     return data.data;
 });
@@ -62,7 +70,11 @@ const userSlice = createSlice({
                 state.loadingStatus = LoadingStatus.SUCCES_REGISTER;
             })
 
-            .addCase(fetchRegisterUser.rejected, (state) => {
+            .addCase(fetchRegisterUser.rejected, (state, action) => {
+                if (action.payload) {
+                    state.loadingStatus = LoadingStatus.ERROR_REGISTER_TAKEN;
+                    return;
+                }
                 state.loadingStatus = LoadingStatus.ERROR_REGISTER;
             })
 

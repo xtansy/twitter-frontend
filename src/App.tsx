@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useLocation } from "react-router-dom";
 
-import { SingleTwitPage, SignIn, Home, User } from "./Pages";
+import { SingleTwitPage, SignIn, Home, User, CustomizeProfile } from "./Pages";
 
 import {
     isAuthSelector,
@@ -60,9 +60,10 @@ function App() {
         <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/home/tweets/:id" element={<SingleTwitPage />} />
-
             <Route path="/user/:id" element={<User />} />
             <Route path="/sign" element={<SignIn />} />
+
+            <Route path="/customize/:id" element={<CustomizeProfile />} />
         </Routes>
     );
 }

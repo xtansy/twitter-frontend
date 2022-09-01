@@ -10,7 +10,9 @@ export const uploadImage = async (image: File) => {
     const formData = new FormData();
     formData.append("image", image);
 
-    const URL = String(process.env.REACT_APP_API_URL) + "upload" || "/upload";
+    const URL = process.env.REACT_APP_API_URL
+        ? process.env.REACT_APP_API_URL + "upload"
+        : "/upload";
 
     const { data } = await axios.post<UploadImageRequestResult>(URL, formData, {
         headers: {

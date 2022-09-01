@@ -23,9 +23,10 @@ const initialState: ISingleTwit = {
 export const fetchSingleTwit = createAsyncThunk<Twit, string>(
     "singleTwit/fetchSingleTwit",
     async (action) => {
-        const URL =
-            String(process.env.REACT_APP_API_URL) + "twits/" + action ||
-            `/twits/${action}`;
+        const URL = process.env.REACT_APP_API_URL
+            ? process.env.REACT_APP_API_URL + "twits/" + action
+            : `/twits/${action}`;
+
         const { data } = await axios.get<Response<Twit>>(URL);
         return data.data;
     }

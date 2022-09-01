@@ -55,7 +55,18 @@ function SignIn() {
                             <Alert onClose={onCloseAlert} severity="error">
                                 <AlertTitle>Ошибка!</AlertTitle>
                                 Произошла ошибка при регистрации!
-                                <strong>check it out!</strong>
+                                <strong>Я сам хуй знаю почему!</strong>
+                            </Alert>
+                        </div>
+                    )}
+                {visibleAlert &&
+                    userLoadingStatus ===
+                        LoadingStatus.ERROR_REGISTER_TAKEN && (
+                        <div className="signIn__alert">
+                            <Alert onClose={onCloseAlert} severity="error">
+                                <AlertTitle>Ошибка!</AlertTitle>
+                                Username или Email уже заняты!
+                                <strong>Попробуйте другие данные!</strong>
                             </Alert>
                         </div>
                     )}

@@ -9,7 +9,9 @@ const initialState: ITags = {
     loadingStatus: TagsLoadingStatus.LOADING,
 };
 export const fetchTags = createAsyncThunk<Tag[]>("tags/fetchTags", async () => {
-    const URL = String(process.env.REACT_APP_API_URL) + "tags" || "/tags";
+    const URL = process.env.REACT_APP_API_URL
+        ? process.env.REACT_APP_API_URL + "tags"
+        : "/tags";
     const { data } = await axios.get(URL);
     return data;
 });

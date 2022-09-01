@@ -33,10 +33,10 @@ const User = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const { data } = await axios.get(
-                    String(process.env.REACT_APP_API_URL) + "users/" + userId ||
-                        `/users/${userId}`
-                );
+                const URL = process.env.REACT_APP_API_URL
+                    ? process.env.REACT_APP_API_URL + "users/" + userId
+                    : `/users/${userId}`;
+                const { data } = await axios.get(URL);
                 setUser(data);
             } catch (e) {
                 alert("Данный пользователь не найден, иди нах отсюда");
@@ -71,7 +71,12 @@ const User = () => {
                             src="https://day.ru/sites/default/files/image/2021-05/илон%20маск_1.jpg"
                             alt=""
                         />
-                        <button className="button">Изменить профиль</button>
+                        <Link
+                            style={{ textDecoration: "none", color: "inherit" }}
+                            to={`/customize/${userId}`}
+                        >
+                            <button className="button">Изменить профиль</button>
+                        </Link>
                     </div>
 
                     <div className="user__profile-info">
