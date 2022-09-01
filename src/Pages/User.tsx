@@ -33,7 +33,11 @@ const User = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const { data } = await axios.get(`/users/${userId}`);
+                const { data } = await axios.get(
+                    String(process.env.REACT_APP_API_URL) +
+                        "/users/" +
+                        userId || `/users/${userId}`
+                );
                 setUser(data);
             } catch (e) {
                 alert("Данный пользователь не найден, иди нах отсюда");

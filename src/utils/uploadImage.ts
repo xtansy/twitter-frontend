@@ -10,15 +10,13 @@ export const uploadImage = async (image: File) => {
     const formData = new FormData();
     formData.append("image", image);
 
-    const { data } = await axios.post<UploadImageRequestResult>(
-        "/upload",
-        formData,
-        {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        }
-    );
+    const URL = String(process.env.REACT_APP_API_URL) + "/upload" || "/upload";
+
+    const { data } = await axios.post<UploadImageRequestResult>(URL, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
 
     return data;
 };

@@ -13,7 +13,9 @@ const UserList = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const { data } = await axios.get("/users");
+                const { data } = await axios.get(
+                    String(process.env.REACT_APP_API_URL) + "/users" || "/users"
+                );
                 setUsers(data.data);
             } catch (e) {
                 console.log(e);
