@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { axios } from "../core/axios";
 
 import { UserInfo } from "../redux/userSlice/types";
+import { Avatar } from "@mui/material";
 
 const UserList = () => {
     const [users, setUsers] = useState<UserInfo[] | null>(null);
@@ -44,11 +45,7 @@ const UserList = () => {
                         to={`/user/${item._id}`}
                     >
                         <div className="home__search-read__profile">
-                            <img
-                                className="avatar"
-                                src="https://day.ru/sites/default/files/image/2021-05/илон%20маск_1.jpg"
-                                alt="ava"
-                            />
+                            <Avatar />
                             <div className="home__search-read__profile-info">
                                 <h3 className="fullname">{item.fullname}</h3>
                                 <p className="username">@{item.username}</p>

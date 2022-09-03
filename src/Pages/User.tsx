@@ -14,6 +14,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { UserInfo } from "../redux/userSlice/types";
 import { Twit } from "../redux/twitsSlice/types";
+import { Avatar } from "@mui/material";
 
 const User = () => {
     const [userData, setUser] = useState<{
@@ -66,11 +67,7 @@ const User = () => {
 
                 <div className="user__profile">
                     <div className="user__profile-header">
-                        <img
-                            className="avatar avatar_user-page"
-                            src="https://day.ru/sites/default/files/image/2021-05/илон%20маск_1.jpg"
-                            alt=""
-                        />
+                        <Avatar sx={{ width: 110, height: 110 }} />
                         <Link
                             style={{ textDecoration: "none", color: "inherit" }}
                             to={`/customize/${userId}`}

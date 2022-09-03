@@ -1,5 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import Avatar from "@mui/material/Avatar";
 
 import { MouseEventHandler, useState } from "react";
 import { ChangeEvent } from "react";
@@ -60,11 +61,7 @@ const AddTwitForm: React.FC<AddTwitFormProps> = ({ onCloseTweetModal }) => {
     return (
         <div className="mytwit">
             <div className="mytwit__header">
-                <img
-                    className="avatar"
-                    src="https://day.ru/sites/default/files/image/2021-05/илон%20маск_1.jpg"
-                    alt="myphoto"
-                />
+                <Avatar />
                 <textarea
                     value={text}
                     onChange={onChangeText}

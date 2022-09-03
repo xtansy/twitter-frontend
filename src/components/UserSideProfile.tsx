@@ -3,6 +3,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
+import Avatar from "@mui/material/Avatar";
 
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -40,7 +41,7 @@ const UserSideProfile = () => {
         <div className="userside">
             <button onClick={handleClick}>
                 <div className="userside__info">
-                    <img src="" alt="avatar" className="avatar" />
+                    <Avatar />
                     <div className="userside__info-text">
                         <h3 className="fullname">{userData.fullname}</h3>
                         <p className="username">{userData.username}</p>

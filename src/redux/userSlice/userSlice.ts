@@ -6,6 +6,7 @@ import { axios } from "../../core/axios";
 import { Response } from "../twitsSlice/twitsSlice";
 import { RegisterProps } from "../../Pages/SignIn/SignUpModal";
 import isAxiosError, { AxiosError } from "axios";
+import { ILabels } from "../../Pages/CustomizeProfile";
 
 const initialState: IUser = {
     data: null,
@@ -51,6 +52,20 @@ export const getMe = createAsyncThunk<User>("user/getMe", async () => {
     const { data } = await axios.get<Response<User>>(URL);
     return data.data;
 });
+
+export const customUser = createAsyncThunk<User, ILabels>(
+    "user/customUser",
+    async (payload) => {
+        const URL = process.env.REACT_APP_API_URL
+            ? process.env.REACT_APP_API_URL + "users/custom"
+            : "/users/custom";
+
+        const { data } = await axios.patch<Response<User>>(URL, payload);
+
+        return data.data;
+    }
+);
+
 const userSlice = createSlice({
     name: "user",
     initialState,
