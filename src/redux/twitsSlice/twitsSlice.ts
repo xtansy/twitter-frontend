@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { axios } from "../../core/axios";
+import { axios, useToken } from "../../core/axios";
 import { ITwits, Twit, LoadingStatus } from "./types";
 // import { RootState } from "../store";
 
@@ -21,6 +21,7 @@ export const postTwit = createAsyncThunk<
         ? process.env.REACT_APP_API_URL + "twits/create"
         : "twits/create";
 
+    useToken();
     const { data } = await axios.post<Response<Twit>>(URL, payload);
 
     return data.data;
@@ -31,7 +32,7 @@ export const deleteTwit = createAsyncThunk<string, string>(
     async (payload) => {
         const URL = process.env.REACT_APP_API_URL
             ? process.env.REACT_APP_API_URL + "twits/" + payload
-            : `twits/${payload}`;
+            : `/twits/${payload}`;
         await axios.delete(URL);
         return payload;
     }

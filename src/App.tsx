@@ -34,6 +34,7 @@ function App() {
 
     useEffect(() => {
         if (!isAuth && isReady) {
+            console.log("на сигн");
             history("/sign");
         }
         if (

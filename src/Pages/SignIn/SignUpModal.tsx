@@ -3,10 +3,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
 import { ModalBlock } from "../../components";
-import { fetchRegisterUser } from "../../redux/userSlice/userSlice";
 import { useAppDispatch } from "../../redux/store";
+import { format } from "date-fns";
+import { fetchRegisterUser } from "../../redux/userSlice/userSlice";
 
 interface SignUpModalProps {
     visible: boolean;
@@ -19,7 +19,9 @@ export interface RegisterProps {
     fullname: string;
     password: string;
     password2: string;
+    birthday: string;
 }
+
 const RegisterSchema = yup
     .object({
         email: yup.string().email("Неверная почта").required("Введите почту"),
@@ -32,6 +34,13 @@ const RegisterSchema = yup
         password2: yup
             .string()
             .oneOf([yup.ref("password")], "Пароли не совпадают"),
+        birthday: yup
+            .date()
+            .nullable()
+            .typeError("Неверная дата")
+            .min(new Date("1/1/1970"), "Не пизди, щегол, ранец собрал?")
+            .max(new Date(), "Дата слишком большая  (̶к̶а̶к̶ ̶м̶о̶й̶ ̶х̶у̶й̶)")
+            .required("Введите дату"),
     })
     .required();
 
@@ -44,10 +53,13 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ visible, onClose }) => {
     } = useForm<RegisterProps>({
         resolver: yupResolver(RegisterSchema),
     });
+
     const onSubmit = (data: RegisterProps) => {
         onClose();
+
         dispatch(fetchRegisterUser(data));
     };
+
     return (
         <ModalBlock
             title={"Создайте учетную запись"}
@@ -86,7 +98,15 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ visible, onClose }) => {
                     placeholder="E-mail"
                 />
                 <p className="error">{errors.email?.message}</p>
-
+                <input
+                    {...register("birthday")}
+                    className={
+                        !errors.birthday?.message ? "form__name" : "error-input"
+                    }
+                    type="date"
+                    placeholder="username"
+                />
+                <p className="error">{errors.birthday?.message}</p>
                 <input
                     {...register("password")}
                     className={

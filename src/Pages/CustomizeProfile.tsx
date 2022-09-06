@@ -3,10 +3,6 @@ import TextField from "@mui/material/TextField";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
 import { useAppDispatch } from "../redux/store";
 import { customUser } from "../redux/userSlice/userSlice";
 import { HomeLayout } from "../layouts";
@@ -15,6 +11,11 @@ import { CountrySelect, BackButton } from "../components";
 export interface ILabels {
     country?: string | undefined;
     about?: string;
+}
+
+const MAX_VALUE = 40;
+enum CustomError {
+    MANY_SYMBOLS = `Количество символов от 1 до 30`,
 }
 
 const labelsCheck = (labels: ILabels): ILabels | null => {
@@ -35,9 +36,10 @@ const CustomizeProfile = () => {
     const dispatch = useAppDispatch();
     const userId = useLocation().pathname.split("/").pop();
 
+    const [error, setError] = useState<CustomError | undefined>(undefined);
+
     const [labels, setLabels] = useState<ILabels | null>(null);
 
-    console.log(labels);
     const handleClick = () => {
         if (!labels) {
             return;
@@ -51,7 +53,13 @@ const CustomizeProfile = () => {
     };
 
     const handleChangeAbout = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLabels((state) => ({ ...state, about: event.target.value }));
+        const value = event.target.value;
+        if (value.length > MAX_VALUE) {
+            setError(CustomError.MANY_SYMBOLS);
+            return;
+        }
+        setError(undefined);
+        setLabels((state) => ({ ...state, about: value }));
     };
 
     return (
@@ -68,12 +76,11 @@ const CustomizeProfile = () => {
                         id="outlined-basic"
                         label="О себе"
                         variant="outlined"
-                        value={labels?.about ? labels?.about : null}
+                        value={labels?.about ? labels?.about : ""}
                         onChange={handleChangeAbout}
                         sx={{ width: 300 }}
-
-                        // error={labels?.about?.length < 100}
-                        // helperText="Incorrect entry."
+                        error={!!error}
+                        helperText={error}
                     />
                 </div>
                 <div className="custom__footer">

@@ -5,6 +5,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import ruLang from "date-fns/locale/ru";
 import RepeatOutlinedIcon from "@mui/icons-material/RepeatOutlined";
+import Avatar from "@mui/material/Avatar";
 
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -52,11 +53,7 @@ const SingleTweet = () => {
     return (
         <div className="fulltwit">
             <div className="fulltwit__info">
-                <img
-                    className="avatar"
-                    src="https://mobile.twitter.com/ivveva"
-                    alt="logo"
-                />
+                <Avatar />
                 <div className="fulltwit__info-text">
                     <h3 className="fulltwit__fullname fullname">
                         {twit.user.fullname}

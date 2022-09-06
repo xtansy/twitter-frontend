@@ -9,6 +9,8 @@ export interface UserInfo {
     location?: string;
     about?: string;
     website?: string;
+    birthday: string;
+    createdAt: string;
 }
 
 export interface User extends UserInfo {

@@ -15,6 +15,8 @@ import { useState } from "react";
 import { UserInfo } from "../redux/userSlice/types";
 import { Twit } from "../redux/twitsSlice/types";
 import { Avatar } from "@mui/material";
+import { formatDateForProfile } from "../utils/formatDate";
+import { Twits2 } from "../components";
 
 const User = () => {
     const [userData, setUser] = useState<{
@@ -50,6 +52,17 @@ const User = () => {
         return null;
     }
 
+    const handleDeleteTwit = (id: string) => {
+        setUser((state) => {
+            if (!state) {
+                return state;
+            }
+            return {
+                ...state,
+                twits: state?.twits.filter((item) => item._id !== id),
+            };
+        });
+    };
     return (
         <HomeLayout>
             <div className="user">
@@ -69,7 +82,10 @@ const User = () => {
                     <div className="user__profile-header">
                         <Avatar sx={{ width: 110, height: 110 }} />
                         <Link
-                            style={{ textDecoration: "none", color: "inherit" }}
+                            style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                            }}
                             to={`/customize/${userId}`}
                         >
                             <button className="button">Изменить профиль</button>
@@ -87,7 +103,8 @@ const User = () => {
 
                     <div className="user__profile-moreinfo">
                         <div className="user__profile-moreinfo__block">
-                            <CakeOutlinedIcon />
+                            <PlaceOutlinedIcon />
+
                             <p className="subtitle">Moscow, Russia</p>
                         </div>
 
@@ -97,16 +114,20 @@ const User = () => {
                         </div>
 
                         <div className="user__profile-moreinfo__block">
-                            <PlaceOutlinedIcon />
+                            <CakeOutlinedIcon />
                             <p className="subtitle">
-                                Дата рождения: 24 октября 1996 г.
+                                Дата рождения:{" "}
+                                {formatDateForProfile(userData.data.birthday)}
+                                г.
                             </p>
                         </div>
 
                         <div className="user__profile-moreinfo__block">
                             <CalendarMonthOutlinedIcon />
                             <p className="subtitle">
-                                Регистрация: ноябрь 2016 г.
+                                Регистрация:{" "}
+                                {formatDateForProfile(userData.data.createdAt)}
+                                г.
                             </p>
                         </div>
                     </div>
@@ -133,7 +154,11 @@ const User = () => {
                         <Tab label="Нравится" />
                     </Tabs>
                 </div>
-                <>
+                <Twits2
+                    twits={userData.twits}
+                    handleDeleteTwit={handleDeleteTwit}
+                />
+                {/* <>
                     {[...userData.twits].reverse().map((item: Twit) => {
                         return (
                             <Link
@@ -159,7 +184,7 @@ const User = () => {
                             </Link>
                         );
                     })}
-                </>
+                </> */}
             </div>
         </HomeLayout>
     );

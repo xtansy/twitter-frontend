@@ -1,9 +1,12 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
+const useToken = () => {
+    const token = localStorage.getItem("token");
 
-if (token) {
-    axios.defaults.headers.common["token"] = token;
-}
-
-export { axios };
+    if (token) {
+        axios.defaults.headers.common["token"] = token;
+    }
+};
+// eslint-disable-next-line react-hooks/rules-of-hooks
+useToken();
+export { axios, useToken };

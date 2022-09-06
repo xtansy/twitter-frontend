@@ -9,6 +9,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
+import Avatar from "@mui/material/Avatar";
+
 import { formatDate } from "../utils/formatDate";
 import ImageList from "./ImageList";
 import { userDataSelector } from "../redux/userSlice/selectors";
@@ -16,6 +18,7 @@ import { deleteTwit } from "../redux/twitsSlice/twitsSlice";
 import { useAppDispatch } from "../redux/store";
 
 interface TwitProps {
+    handleDeleteTwit?: (id: string) => void;
     text: string;
     _id: string;
     createdAt: string;
@@ -35,6 +38,7 @@ const TwitBlock: React.FC<TwitProps> = ({
     text,
     createdAt,
     images,
+    handleDeleteTwit,
     _id,
 }) => {
     const dispatch = useAppDispatch();
@@ -53,6 +57,9 @@ const TwitBlock: React.FC<TwitProps> = ({
         setAnchorEl(null);
     };
     const onClickDeleteTwit = (event: React.MouseEvent<HTMLElement>) => {
+        if (handleDeleteTwit) {
+            handleDeleteTwit(_id);
+        }
         handleClose(event);
         dispatch(deleteTwit(_id));
     };
@@ -60,7 +67,7 @@ const TwitBlock: React.FC<TwitProps> = ({
         <div className="twit">
             <div className="twit__info">
                 <div className="twit__info-block">
-                    <img className="avatar" src={user.avatarUrl} alt="logo" />
+                    <Avatar />
                     <h3 className="twit__fullname fullname">{user.fullname}</h3>
                     <p className="twit__username username">{user.username}</p>
                     <span>•</span>
