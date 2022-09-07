@@ -7,7 +7,7 @@ interface TwitsProps {
     handleDeleteTwit: (id: string) => void;
 }
 
-const Twits2: React.FC<TwitsProps> = ({ twits, handleDeleteTwit }) => {
+const UserTwits: React.FC<TwitsProps> = ({ twits, handleDeleteTwit }) => {
     return (
         <>
             {[...twits].reverse().map((item: Twit) => {
@@ -40,4 +40,4 @@ const Twits2: React.FC<TwitsProps> = ({ twits, handleDeleteTwit }) => {
     );
 };
 
-export default Twits2;
+export default UserTwits;

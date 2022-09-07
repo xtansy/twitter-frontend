@@ -63,6 +63,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ images, setImages }) => {
             </IconButton>
 
             <ImageList
+                isPosting
                 images={images.map((item) => item.blobUrl)}
                 onClickDeleteImage={onClickDeleteImage}
             />

@@ -6,7 +6,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import { HomeLayout } from "../layouts";
-import { BackButton, TwitBlock } from "../components";
+import { BackButton, UserTwits } from "../components";
 import { axios } from "../core/axios";
 
 import { useEffect } from "react";
@@ -16,7 +16,6 @@ import { UserInfo } from "../redux/userSlice/types";
 import { Twit } from "../redux/twitsSlice/types";
 import { Avatar } from "@mui/material";
 import { formatDateForProfile } from "../utils/formatDate";
-import { Twits2 } from "../components";
 
 const User = () => {
     const [userData, setUser] = useState<{
@@ -154,7 +153,7 @@ const User = () => {
                         <Tab label="Нравится" />
                     </Tabs>
                 </div>
-                <Twits2
+                <UserTwits
                     twits={userData.twits}
                     handleDeleteTwit={handleDeleteTwit}
                 />

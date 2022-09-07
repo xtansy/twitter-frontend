@@ -5,7 +5,7 @@ export { default as Tags } from "./Tags";
 export { default as BackButton } from "./BackButton";
 export { default as SingleTweet } from "./SingleTwit";
 export { default as Twits } from "./Twits";
-export { default as Twits2 } from "./Twits2";
+export { default as UserTwits } from "./UserTwits";
 export { default as UploadImages } from "./UploadImages";
 export { default as UserSideProfile } from "./UserSideProfile";
 export { default as UserList } from "./UserList";

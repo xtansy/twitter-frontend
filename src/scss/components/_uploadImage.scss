@@ -8,11 +8,15 @@
             border-radius: 10px;
             margin-right: 10px;
             margin-top: 10px;
-            width: 50px;
-            img {
+            &__img {
                 width: 50px;
                 height: 50px;
                 border-radius: 10px;
+                margin-top: 13px; 
+                &_big {
+                    width: 220px;
+                    height: 220px; 
+                }
             }
             svg {
                 width: 16px;
